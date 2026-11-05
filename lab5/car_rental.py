@@ -22,6 +22,8 @@ def add_car(plate, model="Unknown", daily_rate=0, features=None):
     """Add a car to the fleet and return its record (None if no plate)."""
     if not plate:
         return None
+    if daily_rate < 0:
+        raise ValueError("Daily rate cannot be negative")
     if features is None:
         features = []
     fleet[plate] = {"model": model, "rate": daily_rate,
@@ -45,10 +47,17 @@ def rent_car(plate, customer, start, end):
     """Create a booking for a registered customer and return its cost."""
     if not find_customer(customer):
         raise ValueError("Customer not registered")
+    if plate not in fleet:
+        raise ValueError("Unknown car: " + plate)
+    if not fleet[plate]["available"]:
+        raise ValueError("Car " + plate + " is already rented")
     start_date = datetime.strptime(start, "%Y-%m-%d")
     end_date = datetime.strptime(end, "%Y-%m-%d")
     days = (end_date - start_date).days
+    if days <= 0:
+        raise ValueError("End date must be after start date")
     cost = days * fleet[plate]["rate"]
+    fleet[plate]["available"] = False
     bookings.append({"code": booking_code(), "plate": plate,
                      "customer": customer, "days": days, "cost": cost})
     return cost
@@ -118,19 +127,27 @@ def available_cars():
     return [plate for plate, car in fleet.items() if car["available"]]
 
 
+def try_step(label, func, *args):
+    """Run one demo step, printing its result or the error it raised."""
+    try:
+        print(label, func(*args))
+    except ValueError as err:
+        print(label, "rejected ->", err)
+
+
 def main():
     """Run a short demo of the rental system."""
     add_car("KA01AB1234", "Swift", 1500)
     add_car("KA02CD5678", "Innova", 3000)
-    add_car("KA03EF9999", "Nexon", -500)
+    try_step("Add Nexon:", add_car, "KA03EF9999", "Nexon", -500)
     register_customer("Ravi", "DL-0420110012345", "9845012345")
     register_customer("Meera", "DL-0420110099999", "9845099999")
-    print("Rent Swift:",
-          rent_car("KA01AB1234", "Ravi", "2026-11-01", "2026-11-04"))
-    print("Rent Swift again:",
-          rent_car("KA01AB1234", "Ravi", "2026-11-02", "2026-11-03"))
-    print("Rent Innova:",
-          rent_car("KA02CD5678", "Ravi", "2026-11-10", "2026-11-07"))
+    try_step("Rent Swift:", rent_car,
+             "KA01AB1234", "Ravi", "2026-11-01", "2026-11-04")
+    try_step("Rent Swift again:", rent_car,
+             "KA01AB1234", "Ravi", "2026-11-02", "2026-11-03")
+    try_step("Rent Innova:", rent_car,
+             "KA02CD5678", "Ravi", "2026-11-10", "2026-11-07")
     print("Lookup injection:", find_customer("x' OR '1'='1"))
     print("Extra km charge:", return_car("KA01AB1234", 420))
     print("Return unknown car:", return_car("XX00XX0000", 50))
