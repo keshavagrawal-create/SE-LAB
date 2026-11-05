@@ -10,3 +10,4 @@ Software Engineering lab work — one folder per lab.
 | Lab 4 | [lab4](lab4) | High-Low Card Predictor (Pygame) — bug fix + features |
 | Lab 5 | [lab5](lab5) | Static code analysis (Pylint, Bandit, Flake8) — Car Rental System |
 | Lab 6 | [lab6](lab6) | Car Insurance Premium — unit tests, code & branch coverage |
+| Lab 7 | [lab7](lab7) | Fuzz testing with Hypothesis — Car Insurance Premium parser |

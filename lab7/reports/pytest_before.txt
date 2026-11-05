@@ -1,0 +1,195 @@
+============================= test session starts ==============================
+platform linux -- Python 3.13.18, pytest-9.2.0, pluggy-1.7.0
+rootdir: /home/claude/src/SE-LAB/lab7
+plugins: hypothesis-6.170.14, platformdirs-4.14.5
+collected 3 items
+
+test_car_insurance_premium_parser.py FFF                                 [100%]
+
+=================================== FAILURES ===================================
+_____________________ test_normalize_registration_no_crash _____________________
+
+s = None
+
+    @settings(max_examples=300)
+    @given(st.text() | st.none() | st.integers())
+    def test_normalize_registration_no_crash(s):
+        try:
+>           result = normalize_registration(s)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+test_car_insurance_premium_parser.py:14: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+plate = None
+
+    def normalize_registration(plate):
+        """
+        Removes spaces and dashes from a registration number and upper-cases it.
+        Assumes plate is a non-empty string.
+        """
+>       plate = plate.strip().upper()
+                ^^^^^^^^^^^
+E       AttributeError: 'NoneType' object has no attribute 'strip'
+
+car_insurance_premium_parser.py:6: AttributeError
+
+During handling of the above exception, another exception occurred:
+
+    @settings(max_examples=300)
+>   @given(st.text() | st.none() | st.integers())
+                   ^^^
+
+test_car_insurance_premium_parser.py:11: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+s = None
+
+    @settings(max_examples=300)
+    @given(st.text() | st.none() | st.integers())
+    def test_normalize_registration_no_crash(s):
+        try:
+            result = normalize_registration(s)
+        except Exception as e:
+>           assert False, f"normalize_registration crashed on {s!r} with: {e!r}"
+E           AssertionError: normalize_registration crashed on None with: AttributeError("'NoneType' object has no attribute 'strip'")
+E           assert False
+E           Failing test case: test_normalize_registration_no_crash(
+E               s=None,
+E           )
+E           Explanation:
+E               These lines were always and only run by failing test cases:
+E                   test_car_insurance_premium_parser.py:15
+
+test_car_insurance_premium_parser.py:16: AssertionError
+_______________________ test_total_claim_amount_no_crash _______________________
+  + Exception Group Traceback (most recent call last):
+  |   File "test_car_insurance_premium_parser.py", line 23, in test_total_claim_amount_no_crash
+  |     @given(st.text() | st.none() | claim_like)
+  |                    ^^^
+  | ExceptionGroup: Hypothesis found 2 distinct failures. (2 sub-exceptions)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "test_car_insurance_premium_parser.py", line 26, in test_total_claim_amount_no_crash
+    |     result = total_claim_amount(s)
+    |   File "car_insurance_premium_parser.py", line 16, in total_claim_amount
+    |     return sum(int(amount) for amount in text.split(';'))
+    |   File "car_insurance_premium_parser.py", line 16, in <genexpr>
+    |     return sum(int(amount) for amount in text.split(';'))
+    |                ~~~^^^^^^^^
+    | ValueError: invalid literal for int() with base 10: ''
+    | 
+    | During handling of the above exception, another exception occurred:
+    | 
+    | Traceback (most recent call last):
+    |   File "test_car_insurance_premium_parser.py", line 28, in test_total_claim_amount_no_crash
+    |     assert False, f"total_claim_amount crashed on {s!r} with: {e!r}"
+    | AssertionError: total_claim_amount crashed on '' with: ValueError("invalid literal for int() with base 10: ''")
+    | assert False
+    | Failing test case: test_total_claim_amount_no_crash(
+    |     s='',
+    | )
+    | Explanation:
+    |     These lines were always and only run by failing test cases:
+    |         test_car_insurance_premium_parser.py:27
+    +---------------- 2 ----------------
+    | Traceback (most recent call last):
+    |   File "test_car_insurance_premium_parser.py", line 26, in test_total_claim_amount_no_crash
+    |     result = total_claim_amount(s)
+    |   File "car_insurance_premium_parser.py", line 16, in total_claim_amount
+    |     return sum(int(amount) for amount in text.split(';'))
+    |                                          ^^^^^^^^^^
+    | AttributeError: 'NoneType' object has no attribute 'split'
+    | 
+    | During handling of the above exception, another exception occurred:
+    | 
+    | Traceback (most recent call last):
+    |   File "test_car_insurance_premium_parser.py", line 28, in test_total_claim_amount_no_crash
+    |     assert False, f"total_claim_amount crashed on {s!r} with: {e!r}"
+    | AssertionError: total_claim_amount crashed on None with: AttributeError("'NoneType' object has no attribute 'split'")
+    | assert False
+    | Failing test case: test_total_claim_amount_no_crash(
+    |     s=None,
+    | )
+    | Explanation:
+    |     These lines were always and only run by failing test cases:
+    |         test_car_insurance_premium_parser.py:27
+    +------------------------------------
+___________________________ test_driver_age_no_crash ___________________________
+  + Exception Group Traceback (most recent call last):
+  |   File "test_car_insurance_premium_parser.py", line 34, in test_driver_age_no_crash
+  |     @given(st.text() | st.none() | dob_like)
+  |                    ^^^
+  | ExceptionGroup: Hypothesis found 4 distinct failures. (4 sub-exceptions)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "test_car_insurance_premium_parser.py", line 41, in test_driver_age_no_crash
+    |     assert result is None or (isinstance(result, int) and 0 <= result <= 120)
+    | AssertionError: assert (2026 is None or (True and 2026 <= 120))
+    |  +  where True = isinstance(2026, int)
+    | Failing test case: test_driver_age_no_crash(
+    |     s='//0',
+    | )
+    +---------------- 2 ----------------
+    | Traceback (most recent call last):
+    |   File "test_car_insurance_premium_parser.py", line 37, in test_driver_age_no_crash
+    |     result = driver_age(s)
+    |   File "car_insurance_premium_parser.py", line 23, in driver_age
+    |     return current_year - int(dob.split('/')[2])
+    |                           ~~~^^^^^^^^^^^^^^^^^^^
+    | ValueError: invalid literal for int() with base 10: ''
+    | 
+    | During handling of the above exception, another exception occurred:
+    | 
+    | Traceback (most recent call last):
+    |   File "test_car_insurance_premium_parser.py", line 39, in test_driver_age_no_crash
+    |     assert False, f"driver_age crashed on {s!r} with: {e!r}"
+    | AssertionError: driver_age crashed on '//' with: ValueError("invalid literal for int() with base 10: ''")
+    | assert False
+    | Failing test case: test_driver_age_no_crash(
+    |     s='//',
+    | )
+    +---------------- 3 ----------------
+    | Traceback (most recent call last):
+    |   File "test_car_insurance_premium_parser.py", line 37, in test_driver_age_no_crash
+    |     result = driver_age(s)
+    |   File "car_insurance_premium_parser.py", line 23, in driver_age
+    |     return current_year - int(dob.split('/')[2])
+    |                               ~~~~~~~~~~~~~~^^^
+    | IndexError: list index out of range
+    | 
+    | During handling of the above exception, another exception occurred:
+    | 
+    | Traceback (most recent call last):
+    |   File "test_car_insurance_premium_parser.py", line 39, in test_driver_age_no_crash
+    |     assert False, f"driver_age crashed on {s!r} with: {e!r}"
+    | AssertionError: driver_age crashed on '' with: IndexError('list index out of range')
+    | assert False
+    | Failing test case: test_driver_age_no_crash(
+    |     s='',  # or any other generated value
+    | )
+    +---------------- 4 ----------------
+    | Traceback (most recent call last):
+    |   File "test_car_insurance_premium_parser.py", line 37, in test_driver_age_no_crash
+    |     result = driver_age(s)
+    |   File "car_insurance_premium_parser.py", line 23, in driver_age
+    |     return current_year - int(dob.split('/')[2])
+    |                               ^^^^^^^^^
+    | AttributeError: 'NoneType' object has no attribute 'split'
+    | 
+    | During handling of the above exception, another exception occurred:
+    | 
+    | Traceback (most recent call last):
+    |   File "test_car_insurance_premium_parser.py", line 39, in test_driver_age_no_crash
+    |     assert False, f"driver_age crashed on {s!r} with: {e!r}"
+    | AssertionError: driver_age crashed on None with: AttributeError("'NoneType' object has no attribute 'split'")
+    | assert False
+    | Failing test case: test_driver_age_no_crash(
+    |     s=None,  # or any other generated value
+    | )
+    +------------------------------------
+=========================== short test summary info ============================
+FAILED test_car_insurance_premium_parser.py::test_normalize_registration_no_crash
+FAILED test_car_insurance_premium_parser.py::test_total_claim_amount_no_crash
+FAILED test_car_insurance_premium_parser.py::test_driver_age_no_crash - Excep...
+============================== 3 failed in 3.17s ===============================

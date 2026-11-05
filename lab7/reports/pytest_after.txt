@@ -1,0 +1,10 @@
+$ python -m pytest test_car_insurance_premium_parser.py -v
+============================= test session starts ==============================
+platform linux -- Python 3.13.18, pytest-9.2.0, pluggy-1.7.0 -- python
+collecting ... collected 3 items
+
+test_car_insurance_premium_parser.py::test_normalize_registration_no_crash PASSED [ 33%]
+test_car_insurance_premium_parser.py::test_total_claim_amount_no_crash PASSED [ 66%]
+test_car_insurance_premium_parser.py::test_driver_age_no_crash PASSED    [100%]
+
+============================== 3 passed in 2.40s ===============================
