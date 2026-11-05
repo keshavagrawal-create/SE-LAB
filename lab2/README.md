@@ -25,13 +25,28 @@
 - **Sprint 1 (1 week, 22 pts):** core reading tracking and spoiler-safe chapter discussions
 - **Sprint 2 (1 week, 25 pts):** book nominations, monthly voting and mobile polish
 
-## Screenshots
+## Screenshots (Jira — project `BCP`, board 2)
 
-| | |
-|---|---|
-| Backlog with Epics and User Stories | `screenshots/01_backlog_epics.png` |
-| Story point assignments | `screenshots/02_story_points.png` |
-| Sprint board (Active Sprint) | `screenshots/03_sprint_board.png` |
-| Burndown chart (Sprint 1) | `screenshots/04_burndown_sprint1.png` |
-| Sprint 2 board and burndown | `screenshots/05_sprint2_board.png`, `screenshots/06_burndown_sprint2.png` |
-| Completed Epics | `screenshots/07_epics_done.png` |
+### Backlog with Epics and User Stories
+![Backlog](./screenshots/01_backlog_epics.png)
+
+### Story point assignments
+Epic 1 expanded: 4 work items, 13 points. Each story's points are shown on the right of its row.
+![Story points](./screenshots/02_story_points.png)
+
+### Sprint board — Sprint 1 (Active Sprint view)
+![Sprint 1 board](./screenshots/03_sprint_board.png)
+
+### Burndown chart — Sprint 1
+![Sprint 1 burndown](./screenshots/04_burndown_sprint1.png)
+![Sprint 1 burndown events](./screenshots/04b_burndown_sprint1_events.png)
+
+### Sprint 2 — planned, active board, burndown
+![Sprint 2 planned](./screenshots/05a_sprint2_planned.png)
+![Sprint 2 board](./screenshots/05_sprint2_board.png)
+![Sprint 2 burndown](./screenshots/06_burndown_sprint2.png)
+
+### Both sprints complete — all Epics done
+![Epics done](./screenshots/07_epics_done.png)
+
+The PDF deliverable (Epics, burndown charts and reflection) is [`Lab2_Jira_Report.pdf`](./Lab2_Jira_Report.pdf).
